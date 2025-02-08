@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/border">
+
+    <TextView
+        android:id="@+id/textViewClaveDepartamento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Clave Depto"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewPlazaHistorica"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Plaza Historica"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewFicha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ficha"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewNombres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombres"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewApellidoPaterno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Primer apellido"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewRFC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RFC"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewCategoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Categoría"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewNivel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nivel"
+        android:textSize="16sp" />
+</LinearLayout>

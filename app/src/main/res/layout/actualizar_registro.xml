@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/tvFormTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ACTUALIZACION DE DATOS"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"
+            android:gravity="center" />
+
+        <EditText
+            android:id="@+id/txtClaveDepartamento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/clave_departamento_hint"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/txtPlazaHistorica"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/plaza_historica_hint"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/txtFicha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/ficha_hint"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/txtNombres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/nombres_hint" />
+
+        <EditText
+            android:id="@+id/txtApellidoPaterno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/apellido_paterno_hint" />
+
+        <EditText
+            android:id="@+id/txtApellidoMaterno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/apellido_materno_hint" />
+
+        <EditText
+            android:id="@+id/txtRFC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/rfc_hint" />
+
+        <EditText
+            android:id="@+id/txtCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/categoria_hint" />
+
+        <EditText
+            android:id="@+id/txtNivel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/nivel_hint"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/txtContrasena"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/contrasena_hint"
+            android:inputType="textPassword" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/btnGuardarCambios"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/guardar_cambios"
+                android:contentDescription="@string/guardar_cambios"
+                android:padding="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,665 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Anexo">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/fecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/fecha"
+                android:focusable="false"
+                android:clickable="true"
+                android:inputType="none"
+                android:importantForAutofill="yes"
+                android:padding="12dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/info_entrega_producto"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/numero_embarque"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/no_embarque"
+            android:inputType="number|text"
+            android:autofillHints="username"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/clave_cliente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/clave_cliente"
+            android:inputType="text|textEmailAddress"
+            android:autofillHints="username"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/razon_social"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/razon_social"
+            android:inputType="text"
+            android:autofillHints="username"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/direccion_entrega"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/direccion_entrega"
+            android:inputType="text"
+            android:autofillHints="postalAddress"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/nombre_es"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/nombre_es"
+            android:inputType="text"
+            android:autofillHints="username"
+            android:padding="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/verifica_no_cre"
+            android:textStyle="bold"
+            android:textColor="#0000FF" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <EditText
+            android:id="@+id/permiso_cre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/no_permiso_cre"
+            android:inputType="number"
+            android:autofillHints="username"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/permiso_cre_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/confirmar_no_permiso_cre"
+            android:inputType="number"
+            android:autofillHints="username"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/no_at"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/no_at"
+            android:inputType="number"
+            android:padding="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/numeros_iguales"
+            android:textColor="#FF0000"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/seguridad_entrega"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hora_inicio" />
+
+            <TimePicker
+                android:id="@+id/hora_inicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner"
+                android:layout_gravity="start"
+                android:scaleX="0.8"
+                android:scaleY="0.8" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hora_final" />
+
+            <TimePicker
+                android:id="@+id/hora_final"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner"
+                android:layout_gravity="start"
+                android:scaleX="0.8"
+                android:scaleY="0.8" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/extintor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/extintor"
+            android:layout_marginVertical="8dp"/>
+
+        <CheckBox
+            android:id="@+id/tierra_fisica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tierra_fisica"
+            android:layout_marginVertical="8dp"/>
+
+        <CheckBox
+            android:id="@+id/calzas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calzas"
+            android:layout_marginVertical="8dp"/>
+
+        <CheckBox
+            android:id="@+id/biombos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/biombos"
+            android:layout_marginVertical="8dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/producto_condiciones"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <RadioGroup
+            android:id="@+id/tipo_producto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/regular" />
+
+            <RadioButton
+                android:id="@+id/premium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/premium" />
+
+            <RadioButton
+                android:id="@+id/diesel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/diesel" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/volumen_producto"
+            android:textColor="#0000FF"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/identificar_producto"
+            android:textColor="#FF0000"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+
+        <EditText
+            android:id="@+id/volumen_neto_inicial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/volumen_neto_inicial"
+            android:inputType="numberDecimal"
+            android:autofillHints="username"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/volumen_neto_final"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/volumen_neto_final"
+            android:inputType="numberDecimal"
+            android:autofillHints="username"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/volumen_total_descargado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/volumen_total_descargado"
+            android:inputType="numberDecimal"
+            android:focusable="false"
+            android:clickable="false"
+            android:autofillHints="username"
+            android:padding="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/color_bocatoma" />
+
+        <RadioGroup
+            android:id="@+id/color_bocatoma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/verde_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/verde_regular" />
+
+            <RadioButton
+                android:id="@+id/rojo_premium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rojo_premium" />
+
+            <RadioButton
+                android:id="@+id/negro_diesel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/negro_diesel" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/presion_producto"
+            android:layout_marginTop="8dp"/>
+
+        <RadioGroup
+            android:id="@+id/presion_inicial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/presion_inicial_si"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/si" />
+
+            <RadioButton
+                android:id="@+id/presion_inicial_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/final_entrega"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/presion_producto"
+            android:layout_marginTop="8dp"/>
+
+        <RadioGroup
+            android:id="@+id/presion_final"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/presion_final_si"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/si" />
+
+            <RadioButton
+                android:id="@+id/presion_final_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comprueba_descarga"
+            android:textColor="#FF0000"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <RadioGroup
+            android:id="@+id/presion_final_conflict"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/presion_final_si_conflict"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/si" />
+
+            <RadioButton
+                android:id="@+id/presion_final_no_conflict"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/operador"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginTop="8dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <EditText
+            android:id="@+id/nombre_conductor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/nombre_conductor"
+            android:inputType="text"
+            android:autofillHints="username"
+            android:padding="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.github.gcacace.signaturepad.views.SignaturePad
+            android:id="@+id/signature_pad"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@android:color/darker_gray" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <EditText
+            android:id="@+id/no_at_conflict"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/no_at"
+            android:inputType="number|text"
+            android:autofillHints="username"
+            android:padding="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <EditText
+            android:id="@+id/observaciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/observaciones"
+            android:inputType="text"
+            android:padding="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comprueba_descarga"
+            android:textColor="#FF0000"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/atento"
+            android:textStyle="bold"
+            android:textColor="#0000FF"
+            android:layout_marginTop="8dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/encargado"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginTop="8dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/revisan_sello"
+            android:layout_marginTop="8dp"/>
+
+        <RadioGroup
+            android:id="@+id/revision_s"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/revision_s_si"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/si" />
+
+            <RadioButton
+                android:id="@+id/revision_s_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/oat_muestreo"
+            android:layout_marginTop="8dp"/>
+
+        <RadioGroup
+            android:id="@+id/oat_muestreo_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/oat_muestreo_si"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/si" />
+
+            <RadioButton
+                android:id="@+id/oat_muestreo_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/oat_entrega"
+            android:layout_marginTop="8dp"/>
+
+        <RadioGroup
+            android:id="@+id/oat_entrega_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/oat_entrega_si"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/si" />
+
+            <RadioButton
+                android:id="@+id/oat_entrega_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/oat_entrega_conflict"
+            android:layout_marginTop="8dp"/>
+
+        <RadioGroup
+            android:id="@+id/oat_entrega_b_conflict"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/oat_entrega_si_conflict"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/si" />
+
+            <RadioButton
+                android:id="@+id/oat_entrega_no_conflict"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.github.gcacace.signaturepad.views.SignaturePad
+            android:id="@+id/signature_pad_conflict"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@android:color/darker_gray" />
+
+        <Button
+            android:id="@+id/btn_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/borrar_firma" />
+
+        <Button
+            android:id="@+id/btn_export_pdf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exportar_pdf" />
+    </LinearLayout>
+</ScrollView>

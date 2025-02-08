@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/textViewClaveDepto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Clave del Departamento"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/textViewPlazaHis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Plaza Histórica"
+        android:textSize="16sp"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/textViewFicha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ficha"
+        android:textSize="16sp"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/textViewNombres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombres"
+        android:textSize="16sp"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/textViewApPaterno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apellido Paterno"
+        android:textSize="16sp"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/textViewApMaterno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apellido Materno"
+        android:textSize="16sp"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/textViewRfc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RFC"
+        android:textSize="16sp"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/textViewCategoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Categoría"
+        android:textSize="16sp"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/textViewNivel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nivel"
+        android:textSize="16sp"
+        android:padding="5dp"/>
+</LinearLayout>
