@@ -77,12 +77,12 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    //  Biblioteca iText para generar PDFs
+    // Biblioteca iText para generar PDFs
     implementation("com.itextpdf:itext7-core:7.2.3")
 
-    // ✍ Biblioteca para capturar firmas digitales
+    // Biblioteca para capturar firmas digitales
     implementation("com.github.gcacace:signature-pad:1.3.1")
 
-    //  **Apache PDFBox** (Evita conflictos con iText y Firebase)
+    // Apache PDFBox (Evita conflictos con iText y Firebase)
     implementation("org.apache.pdfbox:pdfbox:2.0.27")
 }

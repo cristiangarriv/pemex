@@ -1,113 +1,97 @@
 package com.example.crudfirebase;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
 import android.os.AsyncTask;
-import android.util.Log;
-import com.itextpdf.forms.PdfAcroForm;
-import com.itextpdf.forms.fields.PdfFormField;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfReader;
-import com.itextpdf.kernel.pdf.PdfWriter;
+import android.os.Environment;
+import android.widget.Toast;
+
+import com.github.gcacace.signaturepad.views.SignaturePad;
+
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-import java.util.Map;
+import java.io.IOException;
 
 /**
- * Clase que genera un PDF basado en la plantilla ANEXO.pdf.
- * Los datos del formulario se proyectan en la plantilla.
+ * Clase GeneradorPdf para la generación de documentos PDF.
  */
-public class GeneradorPDF {
+public class GeneradorPdf {
 
-    private final WeakReference<Context> contextRef;
+    private Context context;
+    private SignaturePad signaturePad;
 
     /**
-     * Constructor de la clase GeneradorPDF.
+     * Constructor de la clase GeneradorPdf.
      *
-     * @param context Contexto de la aplicación.
+     * @param context Contexto de la aplicación
+     * @param signaturePad SignaturePad para capturar firmas
      */
-    public GeneradorPDF(Context context) {
-        this.contextRef = new WeakReference<>(context);
+    public GeneradorPdf(Context context, SignaturePad signaturePad) {
+        this.context = context;
+        this.signaturePad = signaturePad;
     }
 
     /**
-     * Genera un PDF basado en la plantilla ANEXO.pdf y los datos del formulario.
-     *
-     * @param datosFormulario Datos del formulario.
-     * @param nombreArchivo   Nombre del archivo PDF generado.
+     * Método para iniciar la generación del PDF.
      */
-    public void generarPDF(DatosFormulario datosFormulario, String nombreArchivo) {
-        new PdfTask().execute(datosFormulario, nombreArchivo);
+    public void generarPDF() {
+        new PdfTask().execute();
     }
 
-    private class PdfTask extends AsyncTask<Object, Void, File> {
+    /**
+     * Clase interna PdfTask para realizar la tarea de generación de PDF en segundo plano.
+     */
+    private class PdfTask extends AsyncTask<Void, Void, Boolean> {
+
+        private File pdfFile;
 
         @Override
-        protected File doInBackground(Object... params) {
-            DatosFormulario datos = (DatosFormulario) params[0];
-            String nombreArchivo = (String) params[1];
+        protected Boolean doInBackground(Void... voids) {
+            PdfDocument document = new PdfDocument();
+            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+            PdfDocument.Page page = document.startPage(pageInfo);
+            Canvas canvas = page.getCanvas();
 
-            Context context = contextRef.get();
-            if (context == null) return null;
+            Paint paint = new Paint();
+            paint.setColor(Color.BLACK);
+            paint.setTextSize(40);
+
+            canvas.drawText("Este es un documento PDF generado", 80, 50, paint);
+
+            // Añadir firma al PDF si existe
+            if (!signaturePad.isEmpty()) {
+                canvas.drawBitmap(signaturePad.getSignatureBitmap(), 80, 100, paint);
+            }
+
+            document.finishPage(page);
 
             try {
-                // 1. Copiar plantilla desde res/raw
-                InputStream inputStream = context.getResources().openRawResource(R.raw.anexo);
-                File pdfFile = new File(context.getExternalFilesDir(null), nombreArchivo);
-                PdfReader reader = new PdfReader(inputStream);
-                PdfWriter writer = new PdfWriter(new FileOutputStream(pdfFile));
-                PdfDocument pdfDoc = new PdfDocument(reader, writer);
-
-                // 2. Rellenar campos del formulario PDF
-                PdfAcroForm form = PdfAcroForm.getAcroForm(pdfDoc, true);
-                Map<String, PdfFormField> fields = form.getFormFields();
-
-                // Mapeo de campos (ajustar según la plantilla)
-                fields.get("Fecha").setValue(datos.getFecha());
-                fields.get("NoEmbarque").setValue(datos.getNumeroEmbarque());
-                fields.get("ClaveCliente").setValue(datos.getClaveCliente());
-                fields.get("PermisoCRE").setValue(datos.getPermisoCre());
-                fields.get("RazonSocial").setValue(datos.getRazonSocial());
-                fields.get("DireccionEntrega").setValue(datos.getDireccionEntrega());
-                fields.get("Extintor").setValue(datos.getExtintor());
-                fields.get("TierraFisica").setValue(datos.getTierraFisica());
-                fields.get("Calzas").setValue(datos.getCalzas());
-                fields.get("Biombos").setValue(datos.getBiombos());
-                fields.get("HoraInicio").setValue(datos.getHoraInicio());
-                fields.get("TipoProducto").setValue(datos.getTipoProducto());
-                fields.get("VolumenNetoInicial").setValue(datos.getVolumenNetoInicial());
-                fields.get("VolumenNetoFinal").setValue(datos.getVolumenNetoFinal());
-                fields.get("VolumenTotalDescargado").setValue(datos.getVolumenTotalDescargado());
-                fields.get("ColorBocatoma").setValue(datos.getColorBocatoma());
-                fields.get("PresionInicial").setValue(datos.getPresionInicial());
-                fields.get("PresionFinal").setValue(datos.getPresionFinal());
-                fields.get("HoraFinal").setValue(datos.getHoraFinal());
-                fields.get("ComprobacionDescarga").setValue(datos.getComprobacionDescarga());
-                fields.get("NombreConductor").setValue(datos.getNombreConductor());
-                fields.get("NoAT").setValue(datos.getNoAt());
-                fields.get("Observaciones").setValue(datos.getObservaciones());
-                fields.get("RevisionSellos").setValue(datos.getRevisionSellos());
-                fields.get("MuestreoOAT").setValue(datos.getMuestreoOAT());
-                fields.get("EntregaOAT").setValue(datos.getEntregaOAT());
-                fields.get("SatisfaccionCliente").setValue(datos.getSatisfaccionCliente());
-
-                // 3. Cerrar recursos
-                pdfDoc.close();
-                return pdfFile;
-
-            } catch (Exception e) {
-                Log.e("PDF_ERROR", "Error generando PDF: " + e.getMessage());
-                return null;
+                File directory = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/PDFs");
+                if (!directory.exists()) {
+                    boolean dirCreated = directory.mkdirs();
+                    if (!dirCreated) {
+                        return false;
+                    }
+                }
+                pdfFile = new File(directory, "anexo.pdf");
+                try (FileOutputStream fos = new FileOutputStream(pdfFile)) {
+                    document.writeTo(fos);
+                }
+                document.close();
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
             }
         }
 
         @Override
-        protected void onPostExecute(File pdfFile) {
-            Context context = contextRef.get();
-            if (context == null) return;
-
-            if (pdfFile != null) {
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            if (result) {
                 Toast.makeText(context, "PDF generado: " + pdfFile.getPath(), Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(context, "Error al generar PDF", Toast.LENGTH_SHORT).show();

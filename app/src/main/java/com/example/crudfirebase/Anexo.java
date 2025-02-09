@@ -1,27 +1,39 @@
 package com.example.crudfirebase;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.github.gcacace.signaturepad.views.SignaturePad;
 
 /**
- * Actividad principal que captura los datos del formulario y genera el PDF.
+ * Clase Anexo para la actividad de generación y manejo de anexos.
  */
 public class Anexo extends AppCompatActivity {
 
-    private EditText fecha, numeroEmbarque, claveCliente, razonSocial, direccionEntrega, nombreEs, permisoCre, permisoCreConfirm, noAt, volumenNetoInicial, volumenNetoFinal, volumenTotalDescargado, nombreConductor, noAtConflict, observaciones;
-    private RadioGroup tipoProducto, colorBocatoma, presionInicial, presionFinal, presionFinalConflict, revisionS, oatMuestreoB, oatEntregaB, oatEntregaBConflict;
-    private CheckBox extintor, tierraFisica, calzas, biombos;
-    private EditText horaInicio, horaFinal;
+    private static final int PERMISSION_REQUEST_CODE = 1;
+
     private Button btnGenerar;
+    private Button btnClear;
+    private SignaturePad signaturePad;
+    private EditText fecha, numeroEmbarque, claveCliente, razonSocial, direccionEntrega, nombreEs, permisoCre, permisoCreConfirm, noAt, volumenNetoInicial, volumenNetoFinal, volumenTotalDescargado, nombreConductor, noAtConflict, observaciones;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anexo);
 
-        // Inicializar vistas
+        btnGenerar = findViewById(R.id.btn_export_pdf);
+        btnClear = findViewById(R.id.btn_clear);
+        signaturePad = findViewById(R.id.signature_pad_conflict);
+
         fecha = findViewById(R.id.fecha);
         numeroEmbarque = findViewById(R.id.numero_embarque);
         claveCliente = findViewById(R.id.clave_cliente);
@@ -38,69 +50,39 @@ public class Anexo extends AppCompatActivity {
         noAtConflict = findViewById(R.id.no_at_conflict);
         observaciones = findViewById(R.id.observaciones);
 
-        tipoProducto = findViewById(R.id.tipo_producto);
-        colorBocatoma = findViewById(R.id.color_bocatoma);
-        presionInicial = findViewById(R.id.presion_inicial);
-        presionFinal = findViewById(R.id.presion_final);
-        presionFinalConflict = findViewById(R.id.presion_final_conflict);
-        revisionS = findViewById(R.id.revision_s);
-        oatMuestreoB = findViewById(R.id.oat_muestreo_b);
-        oatEntregaB = findViewById(R.id.oat_entrega_b);
-        oatEntregaBConflict = findViewById(R.id.oat_entrega_b_conflict);
-
-        extintor = findViewById(R.id.extintor);
-        tierraFisica = findViewById(R.id.tierra_fisica);
-        calzas = findViewById(R.id.calzas);
-        biombos = findViewById(R.id.biombos);
-        horaInicio = findViewById(R.id.hora_inicio);
-        horaFinal = findViewById(R.id.hora_final);
-
-        btnGenerar = findViewById(R.id.btn_generar);
-
-        // Establecer la fecha actual
-        fecha.setText(Utils.obtenerFechaActual());
-
-        // Generar PDF
         btnGenerar.setOnClickListener(v -> {
-            DatosFormulario datos = new DatosFormulario();
-            datos.setFecha(fecha.getText().toString());
-            datos.setNumeroEmbarque(numeroEmbarque.getText().toString());
-            datos.setClaveCliente(claveCliente.getText().toString());
-            datos.setPermisoCre(permisoCre.getText().toString());
-            datos.setRazonSocial(razonSocial.getText().toString());
-            datos.setDireccionEntrega(direccionEntrega.getText().toString());
-            datos.setExtintor(extintor.isChecked() ? "Sí" : "No");
-            datos.setTierraFisica(tierraFisica.isChecked() ? "Sí" : "No");
-            datos.setCalzas(calzas.isChecked() ? "Sí" : "No");
-            datos.setBiombos(biombos.isChecked() ? "Sí" : "No");
-            datos.setHoraInicio(horaInicio.getText().toString());
-            datos.setTipoProducto(obtenerTextoRadioButton(tipoProducto));
-            datos.setVolumenNetoInicial(volumenNetoInicial.getText().toString());
-            datos.setVolumenNetoFinal(volumenNetoFinal.getText().toString());
-            datos.setVolumenTotalDescargado(volumenTotalDescargado.getText().toString());
-            datos.setColorBocatoma(obtenerTextoRadioButton(colorBocatoma));
-            datos.setPresionInicial(obtenerTextoRadioButton(presionInicial));
-            datos.setPresionFinal(obtenerTextoRadioButton(presionFinal));
-            datos.setHoraFinal(horaFinal.getText().toString());
-            datos.setComprobacionDescarga(obtenerTextoRadioButton(presionFinalConflict));
-            datos.setNombreConductor(nombreConductor.getText().toString());
-            datos.setNoAt(noAt.getText().toString());
-            datos.setObservaciones(observaciones.getText().toString());
-            datos.setRevisionSellos(obtenerTextoRadioButton(revisionS));
-            datos.setMuestreoOAT(obtenerTextoRadioButton(oatMuestreoB));
-            datos.setEntregaOAT(obtenerTextoRadioButton(oatEntregaB));
-            datos.setSatisfaccionCliente(obtenerTextoRadioButton(oatEntregaBConflict));
-
-            new GeneradorPDF(Anexo.this).generarPDF(datos, "anexo_" + System.currentTimeMillis() + ".pdf");
+            if (checkPermission()) {
+                GeneradorPdf generadorPdf = new GeneradorPdf(Anexo.this, signaturePad);
+                generadorPdf.generarPDF();
+            } else {
+                requestPermission();
+            }
         });
+
+        btnClear.setOnClickListener(v -> signaturePad.clear());
     }
 
-    private String obtenerTextoRadioButton(RadioGroup radioGroup) {
-        int selectedId = radioGroup.getCheckedRadioButtonId();
-        if (selectedId != -1) {
-            RadioButton radioButton = findViewById(selectedId);
-            return radioButton.getText().toString();
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            Toast.makeText(this, "Write External Storage permission allows us to create PDF. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
         }
-        return "";
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission Granted, Now you can create PDF.", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Permission Denied, You cannot create PDF.", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
