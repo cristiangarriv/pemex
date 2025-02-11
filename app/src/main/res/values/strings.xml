@@ -75,4 +75,12 @@
     <string name="guardar_cambios">Guardar cambios</string>
     <string name="lista_de_empleados">Lista de empleados</string>
     <string name="preview_pdf">Vista previa del PDF</string>
+
+    <!-- Cadenas faltantes para ConsultaActivity.java y Anexo.java -->
+    <string name="error_conversion_datos">Error al convertir los datos.</string>
+    <string name="datos_no_encontrados">No se encontraron datos.</string>
+    <string name="error_consulta_firebase">Error al consultar Firebase.</string>
+    <string name="permission_rationale">Se necesita acceso al almacenamiento para guardar el PDF.</string>
+    <string name="permission_granted">Permiso de almacenamiento concedido.</string>
+    <string name="permission_denied">Permiso de almacenamiento denegado. Por favor, habilítalo manualmente en la configuración de la aplicación.</string>
 </resources>

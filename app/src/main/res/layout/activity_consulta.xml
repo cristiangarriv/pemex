@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <!-- TextView para el título -->
     <TextView
         android:id="@+id/tituloVerEmpleados"
         android:layout_width="wrap_content"
@@ -15,15 +16,40 @@
         android:layout_marginBottom="16dp"
         android:layout_marginTop="8dp" />
 
+    <!-- ProgressBar para indicar carga -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp" />
+
+    <!-- TextView para mostrar datos -->
+    <TextView
+        android:id="@+id/textViewDatos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tituloVerEmpleados"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:text="Datos del formulario"
+        android:visibility="gone" />
+
+    <!-- ScrollView para envolver el contenido desplazable -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tituloVerEmpleados">
+        android:layout_below="@id/textViewDatos"
+        android:layout_marginTop="16dp"
+        android:fillViewport="true">
 
+        <!-- Contenedor para el RecyclerView -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- RecyclerView para mostrar la lista de empleados -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewEmpleados"
                 android:layout_width="match_parent"

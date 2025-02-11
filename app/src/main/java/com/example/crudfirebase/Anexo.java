@@ -1,88 +1,85 @@
 package com.example.crudfirebase;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.provider.Settings;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.github.gcacace.signaturepad.views.SignaturePad;
-
 /**
- * Clase Anexo para la actividad de generación y manejo de anexos.
+ * Clase para la actividad de generación de anexos.
+ * Maneja permisos y la firma para los formularios generados.
  */
 public class Anexo extends AppCompatActivity {
 
-    private static final int PERMISSION_REQUEST_CODE = 1;
-
-    private Button btnGenerar;
-    private Button btnClear;
-    private SignaturePad signaturePad;
-    private EditText fecha, numeroEmbarque, claveCliente, razonSocial, direccionEntrega, nombreEs, permisoCre, permisoCreConfirm, noAt, volumenNetoInicial, volumenNetoFinal, volumenTotalDescargado, nombreConductor, noAtConflict, observaciones;
+    private static final int PERMISSION_REQUEST_CODE = 1; // Código de solicitud de permisos
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anexo);
 
-        btnGenerar = findViewById(R.id.btn_export_pdf);
-        btnClear = findViewById(R.id.btn_clear);
-        signaturePad = findViewById(R.id.signature_pad_conflict);
-
-        fecha = findViewById(R.id.fecha);
-        numeroEmbarque = findViewById(R.id.numero_embarque);
-        claveCliente = findViewById(R.id.clave_cliente);
-        razonSocial = findViewById(R.id.razon_social);
-        direccionEntrega = findViewById(R.id.direccion_entrega);
-        nombreEs = findViewById(R.id.nombre_es);
-        permisoCre = findViewById(R.id.permiso_cre);
-        permisoCreConfirm = findViewById(R.id.permiso_cre_confirm);
-        noAt = findViewById(R.id.no_at);
-        volumenNetoInicial = findViewById(R.id.volumen_neto_inicial);
-        volumenNetoFinal = findViewById(R.id.volumen_neto_final);
-        volumenTotalDescargado = findViewById(R.id.volumen_total_descargado);
-        nombreConductor = findViewById(R.id.nombre_conductor);
-        noAtConflict = findViewById(R.id.no_at_conflict);
-        observaciones = findViewById(R.id.observaciones);
-
-        btnGenerar.setOnClickListener(v -> {
-            if (checkPermission()) {
-                GeneradorPdf generadorPdf = new GeneradorPdf(Anexo.this, signaturePad);
-                generadorPdf.generarPDF();
-            } else {
-                requestPermission();
-            }
-        });
-
-        btnClear.setOnClickListener(v -> signaturePad.clear());
+        // Verificar y solicitar permisos al iniciar la actividad
+        if (!checkPermission()) {
+            requestPermission();
+        }
     }
 
+    /**
+     * Verifica si el permiso de escritura en almacenamiento externo está concedido.
+     *
+     * @return true si el permiso está concedido, false en caso contrario.
+     */
     private boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        return result == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED;
     }
 
+    /**
+     * Solicita el permiso de escritura en almacenamiento externo.
+     * Si el usuario ha denegado el permiso anteriormente, se muestra una explicación.
+     */
     private void requestPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            Toast.makeText(this, "Write External Storage permission allows us to create PDF. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            // Mostrar explicación al usuario
+            Toast.makeText(this, getString(R.string.permission_rationale), Toast.LENGTH_LONG).show();
         }
+        // Solicitar el permiso
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission Granted, Now you can create PDF.", Toast.LENGTH_LONG).show();
+                // Permiso concedido
+                Toast.makeText(this, getString(R.string.permission_granted), Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Permission Denied, You cannot create PDF.", Toast.LENGTH_LONG).show();
+                // Permiso denegado
+                Toast.makeText(this, getString(R.string.permission_denied), Toast.LENGTH_LONG).show();
+
+                // Redirigir al usuario a la configuración de la aplicación si deniega el permiso repetidamente
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    openAppSettings();
+                }
             }
         }
+    }
+
+    /**
+     * Abre la configuración de la aplicación para que el usuario pueda otorgar permisos manualmente.
+     */
+    private void openAppSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        intent.setData(uri);
+        startActivity(intent);
     }
 }
